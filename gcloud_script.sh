@@ -1,8 +1,18 @@
 TOPIC_NAME=serverless-topic;
 SINK_NAME=serverless-sink;
 PROJECT_ID=wwb-assets-serverless;
+ZONE=us-central1-a
+SUBNET=wwb-assets-serverless-subnet
 
+# Set Project
 gcloud config set project $PROJECT_ID;
+gcloud config set compute/zone $ZONE
+
+# Create VMs
+gcloud compute instances create instance-1 --subnet=$SUBNET;
+gcloud compute instances create instance-2 --subnet=$SUBNET;
+
+# Create Static IPs
 
 # Create Pub/Sub Topic
 gcloud pubsub topics create $TOPIC_NAME;
