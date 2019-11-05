@@ -14,7 +14,6 @@ This repository contains resources for tracking static IP changes on a Google Cl
 7. Check that your Pub/Sub topic and Cloud Function were created correctly
 
 # Usage
-1. Create one or more VMs and several static IP addresses in GCP
-2. Manually attach a different static IP to one of the VMs
-3. This static IP change should generate a Stackdriver event, which is captured by the Cloud Function
-4. The Cloud Function will perform a VM migration event, which in turn is tracked by Stackdriver
+1. [Manually attach a different external IP](https://cloud.google.com/compute/docs/ip-addresses/reserve-static-external-ip-address#IP_assign) to one of the VMs
+2. This static IP change should generate a Stackdriver event, which is captured by the Cloud Function
+3. The Cloud Function will perform a VM migration event, which in turn is tracked by Stackdriver
