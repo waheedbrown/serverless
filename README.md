@@ -25,7 +25,7 @@ Please see the contents of the debugging folder, for resources to debug Google C
 1. Clone this repo to your workspace
 2. Navigate to the debugging folder
 3. Edit the prepare_log.sh script, adding in your Google Cloud Platform (GCP) specific values for project ID, zone, region and virtual machine (VM) instance ID
-4. Run prepare_log.sh, whicl will produce a file called prepared_log.json
+4. Run prepare_log.sh, which will produce a file called prepared_log.json
 5. In the GCP console, create a Python 3 Cloud Function, the "Trigger" will be "Cloud Pub/Sub" and the "Topic" will be the one created in the above Installation steps; for "Source code" select "Inline editor" and for "Runtime" select "Python 3.x"
 6. Copy-paste the contents of debugger/main.py into the "main.py" field
 7. Continue creating the Cloud Function, naming it and the "Function to execute" as test_migrate_vm
