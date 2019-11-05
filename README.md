@@ -9,8 +9,9 @@ This repository contains resources for tracking static IP changes on a Google Cl
 2. Open Cloud Shell terminal
 3. Clone this repo into your Cloud Shell terminal
 4. Change the PROJECT_ID variable so that your own GCP project ID is assigned
-5. Execute the gcloud_script.sh shell script
-6. Check that your Pub/Sub topic and Cloud Function were created correctly
+5. Change the SUBNET variable so that your own Virtual Private Cloud (VPC) [subnet](https://cloud.google.com/vpc/docs/using-vpc) is assigned
+6. Execute the gcloud_script.sh shell script
+7. Check that your Pub/Sub topic and Cloud Function were created correctly
 
 # Usage
 1. Create one or more VMs and several static IP addresses in GCP
