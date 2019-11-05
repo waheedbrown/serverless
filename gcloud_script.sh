@@ -1,9 +1,9 @@
 TOPIC_NAME=serverless-topic;
 SINK_NAME=serverless-sink;
 PROJECT_ID=wwb-assets-serverless;
-REGION=us-central1
-ZONE=us-central1-a
-SUBNET=wwb-assets-serverless-subnet
+REGION=us-central1;
+ZONE=us-central1-a;
+SUBNET=wwb-assets-serverless-subnet;
 
 # Set Environment
 gcloud config set project $PROJECT_ID;
