@@ -11,6 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
+# DESCRIPTION:
+#
+# This shell script prepares sample log data for testing a Cloud Function.
+# Add in your Google Cloud Platform (GCP) specific values for project ID,
+# zone, region and virtual machine (VM) instance ID. The sample log JSON
+# string will be output into a file named prepared_log.json
 
 PROJECT_ID=wwb-assets-serverless;
 ZONE=us-central1-a;
@@ -18,4 +25,4 @@ REGION=us-central1;
 SUBNET=wwb-assets-serverless-subnet;
 INSTANCE_ID=5608139878076087787;
 
-sed 's/$PROJECT_ID/'"$PROJECT_ID"'/g;s/$ZONE/'"$ZONE"'/g;s/$REGION/'"$REGION"'/g;s/$SUBNET/'"$SUBNET"'/g;s/$INSTANCE_ID/'"$INSTANCE_ID"'/g' sample_log.json > prepared_log.json;
+sed 's/${PROJECT_ID}/'"${PROJECT_ID}"'/g;s/${ZONE}/'"${ZONE}"'/g;s/${REGION}/'"${REGION}"'/g;s/${SUBNET}/'"${SUBNET}"'/g;s/${INSTANCE_ID}/'"${INSTANCE_ID}"'/g' sample_log.json > prepared_log.json;

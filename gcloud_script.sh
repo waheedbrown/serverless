@@ -11,6 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
+# DESCRIPTION:
+#
+# This shell script configures your Google Cloud Platform (GCP)
+# project with resources for a Cloud Function demo
+#
+# Change the PROJECT_ID variable so that your own GCP project ID is
+# assigned Change the SUBNET variable so that your own Virtual Private
+# Cloud (VPC) subnet is assigned
 
 TOPIC_NAME=serverless-topic;
 SINK_NAME=serverless-sink;
@@ -20,41 +29,41 @@ ZONE=us-central1-a;
 SUBNET=wwb-assets-serverless-subnet;
 
 # Set Environment
-gcloud config set project $PROJECT_ID;
-gcloud config set compute/region $REGION;
-gcloud config set compute/zone $ZONE;
+gcloud config set project ${PROJECT_ID};
+gcloud config set compute/region ${REGION};
+gcloud config set compute/zone ${ZONE};
 
 # Create VMs
-gcloud compute instances create instance-1 --subnet=$SUBNET;
-gcloud compute instances create instance-2 --subnet=$SUBNET;
+gcloud compute instances create instance-1 --subnet=${SUBNET};
+gcloud compute instances create instance-2 --subnet=${SUBNET};
 
 # Create Static IPs
-gcloud compute addresses create static-ip-1 --region $REGION;
-gcloud compute addresses create static-ip-2 --region $REGION;
+gcloud compute addresses create static-ip-1 --region ${REGION};
+gcloud compute addresses create static-ip-2 --region ${REGION};
 
 # Create Pub/Sub Topic
-gcloud pubsub topics create $TOPIC_NAME;
+gcloud pubsub topics create ${TOPIC_NAME};
 
 # Create Stackdriver Logging Sink
-gcloud logging sinks create $SINK_NAME \
-pubsub.googleapis.com/projects/$PROJECT_ID/topics/$TOPIC_NAME \
+gcloud logging sinks create ${SINK_NAME} \
+pubsub.googleapis.com/projects/${PROJECT_ID}/topics/${TOPIC_NAME} \
 --log-filter "resource.type="gce_instance" AND ("addAccessConfig") AND (NOT protoPayload.request.name="*")" \
 2> /tmp/sink_created.out;
 
 LOGGING_SERVICE_ACCOUNT=$(awk -F '`' '{print $2}' /tmp/sink_created.out);
 
 # Grant Pub/Sub Publisher role on the above topic, to the logging service account
-gcloud projects add-iam-policy-binding $PROJECT_ID \
+gcloud projects add-iam-policy-binding ${PROJECT_ID} \
 --member ${LOGGING_SERVICE_ACCOUNT} \
 --role roles/pubsub.publisher;
 
 # Create Cloud Function
 # main.py must be in the directory where this gcloud command is run
 gcloud --quiet functions deploy live_migrate_vm --runtime python37 \
---trigger-topic $TOPIC_NAME;
+--trigger-topic ${TOPIC_NAME};
 
 # Add the project ID to the advanced filter for the Cloud Function
 TEMP_FILE=$(mktemp);
-sed 's/$PROJECT_ID/'"$PROJECT_ID"'/g' advanced_filter_cloud_function_event.txt > $TEMP_FILE;
+sed 's/${PROJECT_ID}/'"${PROJECT_ID}"'/g' advanced_filter_cloud_function_event.txt > $TEMP_FILE;
 cat $TEMP_FILE > advanced_filter_cloud_function_event.txt;
 rm -f $TEMP_FILE;
