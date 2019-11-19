@@ -52,3 +52,9 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 # main.py must be in the directory where this gcloud command is run
 gcloud --quiet functions deploy live_migrate_vm --runtime python37 \
 --trigger-topic $TOPIC_NAME;
+
+# Add the project ID to the advanced filter for the Cloud Function
+TEMP_FILE=$(mktemp);
+sed 's/$PROJECT_ID/'"$PROJECT_ID"'/g' advanced_filter_cloud_function_event.txt > $TEMP_FILE;
+cat $TEMP_FILE > advanced_filter_cloud_function_event.txt;
+rm -f $TEMP_FILE;

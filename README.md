@@ -12,7 +12,6 @@ This repository contains resources for tracking static IP changes on a Google Cl
 5. Change the SUBNET variable so that your own Virtual Private Cloud (VPC) [subnet](https://cloud.google.com/vpc/docs/using-vpc) is assigned
 6. Execute the gcloud_script.sh shell script
 7. Check that your Pub/Sub topic and Cloud Function were created correctly
-8. After the App Engine service account is created, run prepare_advanced_filter_cloud_function_event.sh. This will prepare the sample log filter advanced_filter_cloud_function_event.txt, which you can use for testing. NOTE: The App Engine service account is created when you create a Cloud Function
 
 # Usage
 1. [Manually attach a different external IP](https://cloud.google.com/compute/docs/ip-addresses/reserve-static-external-ip-address#IP_assign) to one of the VMs
