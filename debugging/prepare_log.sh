@@ -25,4 +25,7 @@ region="us-central1";
 subnet="wwb-assets-serverless-subnet";
 instance_id="5608139878076087787";
 
-sed 's/${project_id}/'"${project_id}"'/g;s/${zone}/'"${zone}"'/g;s/${region}/'"${region}"'/g;s/${subnet}/'"${subnet}"'/g;s/${instance_id}/'"${instance_id}"'/g' sample_log.json > prepared_log.json;
+sed 's/${project_id}/'"${project_id}"'/g;s/${zone}/'"${zone}"\
+'/g;s/${region}/'"${region}"'/g;s/${subnet}/'"${subnet}"\
+'/g;s/${instance_id}/'"${instance_id}"'/g' sample_log.json > \
+prepared_log.json;

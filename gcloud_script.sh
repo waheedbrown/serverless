@@ -47,12 +47,13 @@ gcloud pubsub topics create "${topic_name}";
 # Create Stackdriver Logging Sink
 gcloud logging sinks create "${sink_name}" \
 pubsub.googleapis.com/projects/"${project_id}"/topics/"${topic_name}" \
---log-filter "resource.type="gce_instance" AND ("addAccessConfig") AND (NOT protoPayload.request.name="*")" \
-2> /tmp/sink_created.out;
+--log-filter "resource.type="gce_instance" AND ("addAccessConfig") AND \
+(NOT protoPayload.request.name="*")" 2> /tmp/sink_created.out;
 
 logging_service_account=$(awk -F '`' '{print $2}' /tmp/sink_created.out);
 
-# Grant Pub/Sub Publisher role on the above topic, to the logging service account
+# Grant Pub/Sub Publisher role on the above topic,
+# to the logging service account
 gcloud projects add-iam-policy-binding "${project_id}" \
 --member ${logging_service_account} \
 --role roles/pubsub.publisher;
@@ -63,7 +64,8 @@ gcloud --quiet functions deploy live_migrate_vm --runtime python37 \
 --trigger-topic "${topic_name}";
 
 # Add the project ID to the advanced filter for the Cloud Function
-TEMP_FILE="$(mktemp)";
-sed 's/${project_id}/'"${project_id}"'/g' advanced_filter_cloud_function_event.txt > $TEMP_FILE;
-cat $TEMP_FILE > advanced_filter_cloud_function_event.txt;
-rm -f $TEMP_FILE;
+temp_file="$(mktemp)";
+sed 's/${project_id}/'"${project_id}"'/g' \
+advanced_filter_cloud_function_event.txt > $temp_file;
+cat $temp_file > advanced_filter_cloud_function_event.txt;
+rm -f $temp_file;
