@@ -19,10 +19,10 @@
 # zone, region and virtual machine (VM) instance ID. The sample log JSON
 # string will be output into a file named prepared_log.json
 
-PROJECT_ID=wwb-assets-serverless;
-ZONE=us-central1-a;
-REGION=us-central1;
-SUBNET=wwb-assets-serverless-subnet;
-INSTANCE_ID=5608139878076087787;
+project_id="wwb-assets-serverless";
+zone="us-central1-a";
+region="us-central1";
+subnet="wwb-assets-serverless-subnet";
+instance_id="5608139878076087787";
 
-sed 's/${PROJECT_ID}/'"${PROJECT_ID}"'/g;s/${ZONE}/'"${ZONE}"'/g;s/${REGION}/'"${REGION}"'/g;s/${SUBNET}/'"${SUBNET}"'/g;s/${INSTANCE_ID}/'"${INSTANCE_ID}"'/g' sample_log.json > prepared_log.json;
+sed 's/${project_id}/'"${project_id}"'/g;s/${zone}/'"${zone}"'/g;s/${region}/'"${region}"'/g;s/${subnet}/'"${subnet}"'/g;s/${instance_id}/'"${instance_id}"'/g' sample_log.json > prepared_log.json;
